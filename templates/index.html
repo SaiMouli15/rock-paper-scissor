@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 400px; margin: 40px auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
+        h1 { text-align: center; }
+        .scoreboard { margin: 1em 0; padding: 1em; background: #e9ecef; border-radius: 6px; }
+        .result { font-size: 1.2em; margin: 1em 0; text-align: center; }
+        .choices { display: flex; justify-content: space-between; margin: 2em 0; }
+        .choice-btn {
+            flex: 1;
+            margin: 0 0.5em;
+            padding: 1.2em 0;
+            font-size: 1.2em;
+            border-radius: 8px;
+            border: 2px solid #2196f3;
+            background: #e3f2fd;
+            color: #1565c0;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .choice-btn:hover {
+            background: #2196f3;
+            color: #fff;
+        }
+        .reset-btn { background: #f44336; color: #fff; border: none; margin-top: 1em; padding: 0.7em 0; border-radius: 4px; width: 100%; font-size: 1em; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="scoreboard">
+            <p><strong>Games Played:</strong> {{ game_count }}</p>
+            <p><strong>Your Score:</strong> {{ player_score }}</p>
+            <p><strong>Computer Score:</strong> {{ computer_score }}</p>
+            <p><strong>Ties:</strong> {{ tie_score }}</p>
+        </div>
+        {% if last_result %}
+            <div class="result">{{ last_result }}</div>
+            {% if last_computer %}
+                <div class="result">Computer chose: 
+                    {% if last_computer == 1 %}Rock{% elif last_computer == 2 %}Paper{% elif last_computer == 3 %}Scissors{% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+        <form method="post">
+            <div class="choices">
+                <button class="choice-btn" type="submit" name="choice" value="1">🪨 Rock</button>
+                <button class="choice-btn" type="submit" name="choice" value="2">📄 Paper</button>
+                <button class="choice-btn" type="submit" name="choice" value="3">✂️ Scissors</button>
+            </div>
+        </form>
+        <form action="{{ url_for('reset') }}" method="get">
+            <button class="reset-btn" type="submit">Reset Scores</button>
+        </form>
+    </div>
+</body>
+</html> 
